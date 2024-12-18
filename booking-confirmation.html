@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        /* Basic Reset */
+        body, h1, h2, p, form, input, select, button, textarea {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #b53ce2;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .confirmation-container {
+            background-color: #ffffff;
+            width: 60%;
+            margin: 40px auto;
+            padding: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border-top: 4px solid #4CAF50;
+        }
+
+        .confirmation-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-container p {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .confirmation-container a {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .confirmation-container a:hover {
+            background-color: #e894d2;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Booking Confirmation</h1>
+    </header>
+
+    <!-- Confirmation Message Section -->
+    <div class="confirmation-container">
+        <h2>Your Booking is Confirmed!</h2>
+        <p>Thank you for booking the campus resource. Your booking has been successfully confirmed.</p>
+        <p><strong>Booking Details:</strong></p>
+        <ul>
+            <li>Resource: <span id="resource-name"></span></li>
+            <li>Enrollment Number: <span id="enrollment-number"></span></li>
+            <li>Phone Number: <span id="phone-number"></span></li>
+            <li>College Email: <span id="college-email"></span></li>
+            <li>Booking Date: <span id="booking-date"></span></li>
+            <li>Additional Comments: <span id="user-comments"></span></li>
+        </ul>
+        <a href="Main.html">Back to Home</a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Campus Resource Management</p>
+        <p>
+            <a href="#about">About Us</a> | 
+            <a href="#contact">Contact Us</a>
+        </p>
+    </footer>
+    <script>
+        // Retrieve data from localStorage
+        document.getElementById('resource-name').textContent = localStorage.getItem('resource');
+        document.getElementById('enrollment-number').textContent = localStorage.getItem('enrollment');
+        document.getElementById('phone-number').textContent = localStorage.getItem('phone');
+        document.getElementById('college-email').textContent = localStorage.getItem('email');
+        document.getElementById('booking-date').textContent = localStorage.getItem('date');
+        document.getElementById('user-comments').textContent = localStorage.getItem('comment');
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Map - Indore</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet"/>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        
+        header {
+            background-color: #7bed7f;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        #h {
+            margin: 0;
+            font-size: 2rem;
+            color: white;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #0efd16;
+        }
+
+        /* Sidebar for searching locations */
+        .sidebar { 
+            position: absolute; 
+            top: 10px; 
+            left: 10px; 
+            z-index: 10; 
+            background: rgba(255, 255, 255, 0.8); 
+            padding: 15px; 
+            width: 250px; 
+            border-radius: 5px; 
+        }
+
+        .sidebar input { 
+            width: 100%; 
+            padding: 8px; 
+            margin-bottom: 10px; 
+        }
+
+        .location-details { 
+            font-size: 14px; 
+            margin-top: 10px; 
+        }
+
+        /* Map styling */
+        #map { 
+            height: calc(100vh - 120px); /* Subtracting space for header and navbar */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1 id="h">Campus Resource Management</h1>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="book.html">Booking</a>
+        <a href="map.html">Map</a>
+        <a href="logout.html">LogOut</a>
+    </nav>
+
+    <!-- Sidebar for searching locations -->
+    <div class="sidebar">
+        <input type="text" id="search" placeholder="Search for a building or location..."/>
+        <div id="location-details" class="location-details"></div>
+    </div>
+
+    <!-- Map container -->
+    <div id="map"></div>
+
+    <!-- Leaflet and custom script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script>
+        // Initialize the map with the coordinates of Indore
+        var map = L.map('map').setView([22.7196, 75.8577], 13);  // Coordinates for Indore (zoom level 13)
+
+        // Add OpenStreetMap tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Optionally, restrict the map to Indore's bounds (you can define a bounding box)
+        var bounds = [
+            [22.6071, 75.7467],  // South West corner of Indore (approx)
+            [22.8503, 75.9930]   // North East corner of Indore (approx)
+        ];
+        map.setMaxBounds(bounds);  // Restrict panning to Indore
+
+        // Define some sample campus locations within Indore
+        var locations = [
+            { lat: 22.7196, lon: 75.8577, name: 'Indore City Center', info: 'Main city center, public facilities' },
+            { lat: 22.7157, lon: 75.8583, name: 'MG Road', info: 'Popular shopping and commercial street' },
+            { lat: 22.7203, lon: 75.8500, name: 'Indore Railway Station', info: 'Main transport hub of Indore' },
+            { lat: 22.7280, lon: 75.8680, name: 'Rajwada Palace', info: 'Historical site and tourist attraction' },
+            { lat: 22.7288, lon: 75.8621, name: 'Lal Baag Palace', info: 'Historical palace, heritage site' }
+        ];
+
+        // Add markers to the map for each location
+        locations.forEach(function(location) {
+            var marker = L.marker([location.lat, location.lon]).addTo(map);
+            marker.bindPopup('<b>' + location.name + '</b><br>' + location.info);
+        });
+
+        // Handle search functionality
+        document.getElementById('search').addEventListener('input', function(e) {
+            var searchTerm = e.target.value.toLowerCase();
+            var filteredLocations = locations.filter(function(location) {
+                return location.name.toLowerCase().includes(searchTerm);
+            });
+
+            var details = '';
+            filteredLocations.forEach(function(location) {
+                details += '<p><b>' + location.name + ':</b> ' + location.info + '</p>';
+            });
+
+            document.getElementById('location-details').innerHTML = details;
+
+            // Zoom and pan to first matching location if any
+            if (filteredLocations.length > 0) {
+                var firstMatch = filteredLocations[0];
+                map.setView([firstMatch.lat, firstMatch.lon], 14);  // Adjust zoom level when panning to a location
+            }
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Map - Indore</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet"/>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        
+        header {
+            background-color: #7bed7f;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        #h {
+            margin: 0;
+            font-size: 2rem;
+            color: white;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #0efd16;
+        }
+
+        /* Sidebar for searching locations */
+        .sidebar { 
+            position: absolute; 
+            top: 10px; 
+            left: 10px; 
+            z-index: 10; 
+            background: rgba(255, 255, 255, 0.8); 
+            padding: 15px; 
+            width: 250px; 
+            border-radius: 5px; 
+        }
+
+        .sidebar input { 
+            width: 100%; 
+            padding: 8px; 
+            margin-bottom: 10px; 
+        }
+
+        .location-details { 
+            font-size: 14px; 
+            margin-top: 10px; 
+        }
+
+        /* Map styling */
+        #map { 
+            height: calc(100vh - 120px); /* Subtracting space for header and navbar */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1 id="h">Campus Resource Management</h1>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="book.html">Booking</a>
+        <a href="map.html">Map</a>
+        <a href="logout.html">LogOut</a>
+    </nav>
+
+    <!-- Sidebar for searching locations -->
+    <div class="sidebar">
+        <input type="text" id="search" placeholder="Search for a building or location..."/>
+        <div id="location-details" class="location-details"></div>
+    </div>
+
+    <!-- Map container -->
+    <div id="map"></div>
+
+    <!-- Leaflet and custom script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script>
+        // Initialize the map with the coordinates of Indore
+        var map = L.map('map').setView([22.7196, 75.8577], 13);  // Coordinates for Indore (zoom level 13)
+
+        // Add OpenStreetMap tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Optionally, restrict the map to Indore's bounds (you can define a bounding box)
+        var bounds = [
+            [22.6071, 75.7467],  // South West corner of Indore (approx)
+            [22.8503, 75.9930]   // North East corner of Indore (approx)
+        ];
+        map.setMaxBounds(bounds);  // Restrict panning to Indore
+
+        // Define some sample campus locations within Indore
+        var locations = [
+            { lat: 22.7196, lon: 75.8577, name: 'Indore City Center', info: 'Main city center, public facilities' },
+            { lat: 22.7157, lon: 75.8583, name: 'MG Road', info: 'Popular shopping and commercial street' },
+            { lat: 22.7203, lon: 75.8500, name: 'Indore Railway Station', info: 'Main transport hub of Indore' },
+            { lat: 22.7280, lon: 75.8680, name: 'Rajwada Palace', info: 'Historical site and tourist attraction' },
+            { lat: 22.7288, lon: 75.8621, name: 'Lal Baag Palace', info: 'Historical palace, heritage site' }
+        ];
+
+        // Add markers to the map for each location
+        locations.forEach(function(location) {
+            var marker = L.marker([location.lat, location.lon]).addTo(map);
+            marker.bindPopup('<b>' + location.name + '</b><br>' + location.info);
+        });
+
+        // Handle search functionality
+        document.getElementById('search').addEventListener('input', function(e) {
+            var searchTerm = e.target.value.toLowerCase();
+            var filteredLocations = locations.filter(function(location) {
+                return location.name.toLowerCase().includes(searchTerm);
+            });
+
+            var details = '';
+            filteredLocations.forEach(function(location) {
+                details += '<p><b>' + location.name + ':</b> ' + location.info + '</p>';
+            });
+
+            document.getElementById('location-details').innerHTML = details;
+
+            // Zoom and pan to first matching location if any
+            if (filteredLocations.length > 0) {
+                var firstMatch = filteredLocations[0];
+                map.setView([firstMatch.lat, firstMatch.lon], 14);  // Adjust zoom level when panning to a location
+            }
+        });
+    </script>
+</body>
+</html>
